@@ -2,6 +2,20 @@
 
 *Descrição do curso:* Utilize o TDD para desenvolver um gerenciador financeiro com a segurança dos testes automatizados sempre a seu lado.
 
+## Sobre o sistema a ser desenvolvido
+
+Há os Usuários. Os usuários possuem contas.
+
+Através da conta é possível realizar transações. Ex: Receber dinheiro por depósito.
+
+Também é possível fazer transferência de uma conta A para uma conta B.
+Isso gera duas transações:
+
+- 1°: Dinheiro saindo da conta A.
+- 2°: Dinheiro sendo recebido na conta B.
+
+Com isso, calculamos o saldo de alguma conta considerando apenas as transações, já que a transferência gera transações.
+
 ## Anotações sobre o Visual Studio
 
 ### Mexendo pelo terminal
