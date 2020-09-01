@@ -1,0 +1,65 @@
+
+// html>div -> resultado:
+<html>
+<div></div>
+</html>
+
+// html>head+body>div -> resultado:
+// + indica que as tags estao no mesmo nivel
+<html>
+<head></head>
+<body>
+    <div></div>
+</body>
+</html>
+
+// html>head+body>div.nome_classe -> resultado:
+<html>
+<head></head>
+<body>
+    <div class="nome_classe"></div>
+</body>
+</html>
+
+// html>head+body>ul>li*3 -> resultado:
+<html>
+<head></head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+</html>
+
+
+// Gerando elementos html com lorem automatico:
+// html>head+body>ul>li*3>lorem5 -> resultado do lorem com 5 palavras em cada elem. da lista:
+<html>
+<head></head>
+<body>
+    <ul>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Odit iure doloribus atque quis!</li>
+        <li>Recusandae, accusamus laudantium? Sequi, at.</li>
+    </ul>
+</body>
+</html>
+
+
+// Exemplo com footer mais completo 
+// html>head+body>(ul>li*3>lorem5)+footer>div
+<html>
+<head></head>
+<body>
+    <ul>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Laudantium voluptatem ex voluptatibus ratione!</li>
+        <li>Aut reiciendis dolore sunt harum?</li>
+    </ul>
+    <footer>
+        <div></div>
+    </footer>
+</body>
+</html>

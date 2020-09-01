@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.tabSize": 4,
+		"editor.fontSize": 14,
+		"debug.console.fontSize": 14,
+		"terminal.integrated.fontSize": 14,
+		"workbench.colorTheme": "Nord", // Definindo o nome do tema para esse projeto
+		"editor.tokenColorCustomizations": {
+			"comments": "#AAAA" // cor do comentario
+		},
+		"editor.fontFamily": "'Fira Code'", // tem que ser instalada
+		"editor.fontLigatures": true, // mostra caracteres de simbolos compactados
+		"workbench.iconTheme": "vscode-icons", // Extensao vscode icons
+	}
+}
