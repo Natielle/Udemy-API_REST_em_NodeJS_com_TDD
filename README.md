@@ -16,6 +16,16 @@ Isso gera duas transações:
 
 Com isso, calculamos o saldo de alguma conta considerando apenas as transações, já que a transferência gera transações.
 
+### Principais códigos http status utilizados
+
+- 200: OK (requisição foi bem sucedida)
+- 201: Created (requisição foi bem sucedida e foi criado um novo recurso como resultado)
+- 403: Forbidden (usuário não tem acesso)
+- 404: Not Found (rota não encontrada)
+- 500: Internal Server Error (servidor encontrou um erro que não consegue lidar)
+
+Link para mais status: [Códigos de status de respostas HTTP](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status)
+
 ## Anotações sobre o Visual Studio
 
 ### Mexendo pelo terminal
@@ -65,9 +75,9 @@ Para executar ``npm run lint``, tem que adicionar o parâmetro lint no arquivo p
 
 **Instalando:** ``npm i –D jest@23.6.0 –E`` – dependência que será instalada apenas em ambiente de dev e em uma versão específica. –E garante que vai pegar a versão e não vai atualizar depois.
 
-*Curiosidade sobre versionamentos:* https://semver.org/lang/pt-BR/
+*Curiosidade sobre versionamentos:* [httpshttps://semver.org/lang/pt-BR/](httpshttps://semver.org/lang/pt-BR/)
 
-**Para rodar o jest:** ``.\node_modules\.bin\jest`` 
+**Para rodar o jest:** ``.\node_modules\.bin\jest``
 
 OBS: caso não haja testes escritos, informará que nenhum teste foi encontrado.
 
@@ -93,7 +103,7 @@ Permite que ao realizar as alterações na aplicação, já tenha um feedback mu
 
 **Instalar a dependência:** ``npm i –S –E knex``
 
-- *Criando uma migration pelo terminal:* 
+- *Criando uma migration pelo terminal:*
 ``node_modules/.bin/knex migrate:make create_users --env test``
 - *Aplicando todas as migrações possíveis:*
 ``node_modules/.bin/knex migrate:latest --env test``
@@ -109,3 +119,15 @@ Permite que ao realizar as alterações na aplicação, já tenha um feedback mu
 ``npm i -S -E passport@0.4.0``
 
 ``npm i -S -E passport-jwt@4.0.0``
+
+### Entendendo sobre os seeds
+
+São arquivos para inserir dados de exemplo ou para teste automaticamente na base de dados.
+
+Para incluir o seed no projeto, adicionar esse trecho no arquivo knexfile.js: ``seeds:{ directory: 'src/seeds' },``
+
+**Criando um seed para uma base de dados:**
+``node_modules/.bin/knex seed:make transfer --env test``
+
+**Executando o seed para povoar a tabela:**
+``node_modules/.bin/knex seed:run --env test``
