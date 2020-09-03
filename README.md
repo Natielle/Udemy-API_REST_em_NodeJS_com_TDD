@@ -97,7 +97,7 @@ Após instalar, basta “importar” no arquivo que vai ser utilizado.
 
 **Para executar os testes em tempo real:** ``npm run secure-mode``
 
-Permite que ao realizar as alterações na aplicação, já tenha um feedback muito rápido para ver se a aplicação ainda está consistente após a alteração do dev.
+Permite que ao realizar as alterações na aplicação, já tenha um feedback muito rápido para ver se a aplicação ainda está consistente após a alteração do dev. E lembrar de incluir no package.json.
 
 ### Mexendo com migrations
 
@@ -131,3 +131,15 @@ Para incluir o seed no projeto, adicionar esse trecho no arquivo knexfile.js: ``
 
 **Executando o seed para povoar a tabela:**
 ``node_modules/.bin/knex seed:run --env test``
+
+OBS: O seed executa na ordem dos arquivos e para não termos problemas com isso utilizaremos uma numeração nos arquivos como:
+
+- 01_transfer.js
+- 02_balance.js
+
+### Caso nada do jest tenha sido configurado no package.json
+
+*Para executar o teste e mostrar o resuminho da execução:* ``node_modules/.bin/jest --verbose=true --watchAll`` (chamado como secure-mode no projeto também)
+*Para executar os testes e mostrar a cobertura:* ``node_modules/.bin/jest --coverage``
+
+## Sobre cobertura dos testes

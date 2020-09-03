@@ -6,6 +6,6 @@ module.exports = (app) =>{
     app.use(bodyParser.json());
     
     // mostra no console as consultas feitas no banco
-    app.use(knexlogger(app.db)) // para ver tem que configurar o --verbose=false no package
+    // app.use(knexlogger(app.db)) // para ver tem que configurar o --verbose=false no package
 
 };
