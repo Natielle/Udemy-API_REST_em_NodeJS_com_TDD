@@ -215,13 +215,13 @@ Caso seja necessário configurar o ambiente como um todo no computador, tem como
 
 ### Logs
 
-Para poder implementar a parte de logs, tem que instalar as seguintes dependências: 
+Para poder implementar a parte de logs, tem que instalar as seguintes dependências:
 
 ``npm i -S -E uuidv4@2.0.0 winston@3.1.0``
 
 ### Para manter o servidor no ar
 
-Para deixar o servidor no ar, tem que instalar a seguinte dependência: 
+Para deixar o servidor no ar, tem que instalar a seguinte dependência:
 
 ``npm i pm2 -g``
 
