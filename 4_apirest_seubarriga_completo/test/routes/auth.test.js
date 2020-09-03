@@ -13,7 +13,7 @@ test('Deve inserir usuario via signup', () => {
 });
 
 test('Deve receber token ao logar', () => {
-    mail =  `${Date.now()}@mail.com`;
+    const mail =  `${Date.now()}@mail.com`;
     return app.services.user.save(
         {name: 'Joao Severino', mail: mail, passwd: '123456' }
     ).then(() => request(app).post('/auth/signin')
@@ -26,7 +26,7 @@ test('Deve receber token ao logar', () => {
 });
 
 test('Nao deve autenticar com senha errada', () => {
-    mail =  `${Date.now()}@mail.com`;
+    const mail =  `${Date.now()}@mail.com`;
     return app.services.user.save(
         {name: 'Joao Severino', mail: mail, passwd: '123456' }
     ).then(() => request(app).post('/auth/signin')

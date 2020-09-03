@@ -1,5 +1,5 @@
 const bodyParser = require('body-parser');
-const knexlogger = require('knex-logger');
+// const knexlogger = require('knex-logger');
 
 module.exports = (app) =>{
     // adicionando o bodyparser para conseguir ler o corpo da resposta

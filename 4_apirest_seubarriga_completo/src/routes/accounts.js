@@ -54,13 +54,13 @@ module.exports = (app) => {
     router.put('/:id',  (req, res, next) => {
         app.services.account.update(req.params.id, req.body)
             .then(result => res.status(200).json(result[0]))
-            .catch(err => next(err));;
+            .catch(err => next(err));
     });
 
     router.delete('/:id',  (req, res, next) => {
         app.services.account.remove(req.params.id)
             .then(() => res.status(204).send())
-            .catch(err => next(err));;
+            .catch(err => next(err));
     });
 
     return router;

@@ -3,17 +3,35 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "statements": 80,
+        "branches": 80,
+        "functions": 80,
+        "lines": 80
+      },
+      "./src/services": {
+        "lines": 100
+      }
+    }
+  },
   "scripts": {
     "start": "node src/server.js",
-    "test": "jest",
+    "test": "jest --coverage --runInBand --forceExit",
     "lint": "eslint src/** test/** --fix",
     "secure-mode": "jest --watchAll --verbose=true"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint &&npm test"
+    }
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^7.7.0",
+    "eslint": "7.8.1",
     "jest": "23.6.0",
     "supertest": "3.3.0"
   },
@@ -22,6 +40,7 @@
     "body-parser": "1.18.3",
     "consign": "0.1.6",
     "express": "4.16.4",
+    "husky": "4.2.5",
     "jwt-simple": "0.5.5",
     "knex": "0.21.5",
     "knex-logger": "^0.1.0",

@@ -1,4 +1,4 @@
-const account = require("./account");
+// const account = require("./account");
 const ValidationError = require('../errors/ValidationError');
 
 module.exports = (app) => {
