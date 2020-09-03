@@ -192,3 +192,43 @@ E depois, basta adicionar isso no package.json:
 ```
 
 Então com tudo isso configurado, toda vez que fizer um commit os testes e o lint será executado.
+
+## Sobre o ambiente de produção
+
+- Adicionamos o ambiente de produção no knexfile.js.
+- Criamos a tabela de produção.
+- Executamos as migrações no ambiente de prod: ``node_modules/.bin/knex migrate:latest --env prod``
+
+Colocando para a aplicação executar o ambiente de prod quando for iniciada ou no ambiente de teste quando forem ser realizados os testes. Basta editar o package.json:
+
+```{json}
+  "scripts": {
+    "start": "NODE_ENV=prod &&node src/server.js",
+    "test": "NODE_ENV=test && jest --coverage --runInBand --forceExit",
+    "lint": "eslint src/** test/** --fix",
+    "secure-mode": "NODE_ENV=test &&jest --watchAll --verbose=true"
+  },
+```
+
+Caso seja necessário configurar o ambiente como um todo no computador, tem como executar o seguinte comando para definir variáveis de ambiente:
+``export QUALQUER=funciona`` (linux e mac)
+
+### Logs
+
+Para poder implementar a parte de logs, tem que instalar as seguintes dependências: 
+
+``npm i -S -E uuidv4@2.0.0 winston@3.1.0``
+
+### Para manter o servidor no ar
+
+Para deixar o servidor no ar, tem que instalar a seguinte dependência: 
+
+``npm i pm2 -g``
+
+Com isso, deve ir até a pasta do projeto e executar: ``pm2 start npm -- start``. OBS: Não deu para executar esse comando porque estava dando um erro informando que caminho_aplicacao/start não foi encontrado.
+
+Dessa forma, você pode fechar o terminal e sua aplicação não irá sair do ar.
+
+Para observar os processos: ``pm2 status``
+
+Para parar o processo: ``pm2 stop 0``

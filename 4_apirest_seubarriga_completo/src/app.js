@@ -5,8 +5,33 @@ const consign = require('consign');
 const knex = require('knex');
 const knexfile = require('../knexfile');
 
-// TODO criar um chaveamento dinamico
-app.db = knex(knexfile.test);
+// dependencias para o log
+const winston = require('winston');
+const uuid = require('uuidv4');
+
+// Com chaveamento de prod e test dinâmico.
+app.db = knex(knexfile[process.env.NODE_ENV.trim()]);
+
+// Outros modos de executar também. E poderia trocar o prod por test para rodar em ambiente de testes.
+// app.db = knex(knexfile.prod);
+// app.db = knex(knexfile['prod']);
+
+// log
+app.log = winston.createLogger({
+    level: 'debug',
+    transports: [
+        new winston.transports.Console({format: winston.format.json({space: 1})}),
+        new winston.transports.File({
+            filename: 'logs/error.log', 
+            level: 'warn', 
+            format: winston.format.combine(winston.format.timestamp(), winston.format.json({ space: 1 })),
+        }),
+    ],
+});
+
+// Entendendo melhor sobre as variáveis de ambiente
+console.log("Visualizando o valor da variável NODE_ENV: ", process.env.NODE_ENV);
+console.log("Visualizando o valor da variável que criamos -> QUALQUER: ", process.env.QUALQUER);
 
 // entendendo melhor o express 
 // middleware especifico para a rota de users
@@ -26,6 +51,9 @@ consign({'cwd': 'src'})
 
 // para a rota '/' o servidor responde status 200
 app.get('/', (req, res) => {
+    // testando o log. Para executar é só abrir o navegador: http://localhost:3001/
+    app.log.debug('passei por aqui atraves do log');
+
     res.status(200).send();
 });
 
@@ -42,7 +70,14 @@ app.use((err, req, res, next) => {
     else if(name === 'InappropriateResourceError') res.status(403).json({error: message});
     else {
         console.log(message); // imprime a mensagem
-        res.status(500).json({name, message, stack});
+        
+        // alternativa que mostra a mensagem de erro parcialmente e guarda a completa no log
+        const id = uuid();
+        app.log.error({id, name, message, stack})
+        res.status(500).json({id: id, error: 'Houve uma falha interna.'});
+        
+        // alternativa que mostra a mensagem completa de erro
+        // res.status(500).json({name, message, stack});
     }
     next();
 });

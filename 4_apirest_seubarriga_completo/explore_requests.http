@@ -1,0 +1,52 @@
+POST http://localhost:3001/ 
+
+### Consultando um usuario
+POST http://localhost:3001/v1/users
+# é para retornar não autorizado porque não estamos passando o token
+
+### Criando um usuario
+POST http://localhost:3001/auth/signup
+content-type: application/json
+
+{
+    "mail": "user1@mail.com",
+    "name": "sample",
+    "passwd": "123456"
+}
+
+### Logando com o usuario
+POST http://localhost:3001/auth/signin
+content-type: application/json
+
+{
+    "mail": "user1@mail.com",
+    "passwd": "123456"
+}
+
+### Consultando as contas do usuario acima
+# A request acima devolve o token abaixo
+# eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTI0LCJuYW1lIjoic2FtcGxlIiwibWFpbCI6InVzZXIxQG1haWwuY29tIn0.szSWgENNZS3_2KGVDDCHKtYrjjbsalnunwKsDN6Q8m8
+GET http://localhost:3001/v1/accounts
+content-type: application/json
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTI0LCJuYW1lIjoic2FtcGxlIiwibWFpbCI6InVzZXIxQG1haWwuY29tIn0.szSWgENNZS3_2KGVDDCHKtYrjjbsalnunwKsDN6Q8m8
+# Nao retorna nenhuma conta pq o usuario ainda não tem
+
+### Criando uma conta pro usuario
+POST http://localhost:3001/v1/accounts
+content-type: application/json
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTI0LCJuYW1lIjoic2FtcGxlIiwibWFpbCI6InVzZXIxQG1haWwuY29tIn0.szSWgENNZS3_2KGVDDCHKtYrjjbsalnunwKsDN6Q8m8
+
+{
+    "name": "Conta para o usuario 1"
+}
+
+
+### Forçando o erro na criacao da conta para gerar o log
+POST http://localhost:3001/v1/accounts
+content-type: application/json
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTI0LCJuYW1lIjoic2FtcGxlIiwibWFpbCI6InVzZXIxQG1haWwuY29tIn0.szSWgENNZS3_2KGVDDCHKtYrjjbsalnunwKsDN6Q8m8
+
+{
+    "name": "Conta #2 para o usuario 1",
+    "invalidAtt": "valor invalido"
+}
