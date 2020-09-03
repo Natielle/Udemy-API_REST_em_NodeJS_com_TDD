@@ -139,7 +139,56 @@ OBS: O seed executa na ordem dos arquivos e para não termos problemas com isso 
 
 ### Caso nada do jest tenha sido configurado no package.json
 
-*Para executar o teste e mostrar o resuminho da execução:* ``node_modules/.bin/jest --verbose=true --watchAll`` (chamado como secure-mode no projeto também)
-*Para executar os testes e mostrar a cobertura:* ``node_modules/.bin/jest --coverage``
+- *Para executar o teste e mostrar o resuminho da execução:* ``node_modules/.bin/jest --verbose=true --watchAll`` (chamado como secure-mode no projeto também)
+- *Para executar os testes e mostrar a cobertura:* ``node_modules/.bin/jest --coverage``
+
+As vezes executar os testes diretamente sem ser pelo modo seguro pode dar problemas, pois estamos precisando de inserções/consultas no banco de dados. Para garantir que os testes vão executar de forma sequencial, rodamos o seguinte comando: ``node_modules/.bin/jest --coverage --runInBand``
+OBS: Eu estava tendo bastante problemas quando eu estava executando sem o parâmetro ``--runInBand``.
+
+E executando o Jest diretamente pode ser que eu não consiga sair da execução automaticamente, para resolver isso temos: ``node_modules/.bin/jest --coverage --runInBand --forceExit``
 
 ## Sobre cobertura dos testes
+
+Indica apenas as linhas que foram ou não exercitadas pelo teste. Ter testes com 100% de cobertura não indica, necessariamente, que seu sistema está funcionando sem bugs.
+
+Com o Jest é possível estabelecer um threshold de cobertura para os testes a nível de statements, branches, functions e lines. Basta adicionar esse trecho de código no package.json:
+
+```{json}
+..."main": "index.js",
+  "jest":{
+    "coverageThreshold": {
+      "global": {
+        "statements": 80,
+        "branches": 80,
+        "functions": 80,
+        "lines": 80
+      }
+    }
+  },
+  "scripts": {...} ...
+```
+
+Como a configuração acima é global, podemos configurar uma cobertura específica também da seguinte forma:
+
+```{json}
+    "./src/services": {
+        "lines": 100
+      }
+```
+
+### Para aumentar a confiança nos commits
+
+Antes de fazer commits no git, podemos verificar se as boas práticas do lint estão sendo cumpridas e se os testes estão passando.
+
+Para fazer os commits apenas se os testes estão passando e se as alterações, precisamos instalar a dependência: `npm i -S -E husky@1.2.0`.
+
+E depois, basta adicionar isso no package.json:
+
+```{json}
+"scripts": { ... },
+  "husky":{
+    "hooks": { "pre-commit": "npm run lint &&npm test" }
+  },
+```
+
+Então com tudo isso configurado, toda vez que fizer um commit os testes e o lint será executado.
